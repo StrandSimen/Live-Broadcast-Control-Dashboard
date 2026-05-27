@@ -1,5 +1,5 @@
 import './topbar.css'
-import { useTheme } from '../themeContext/themeContext'
+import { useTheme } from '../theme-context/themeContext'
 
 export const Topbar = () => {
     const { theme, toggleTheme } = useTheme();

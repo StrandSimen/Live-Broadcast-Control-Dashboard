@@ -21,6 +21,65 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin: 0.25rem 0 0.9rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.healthy {
+  background-color: rgba(76, 175, 80, 0.12);
+  color: var(--text);
+  border-left: 4px solid #4caf50;
+  padding-left: 12px;
+  border-radius: 6px;
+}
+
+.status-badge.healthy {
+  background-color: rgba(76, 175, 80, 0.14);
+  color: #2e7d32;
+  border-left: none;
+}
+
+.degraded {
+  background-color: rgba(240, 173, 78, 0.12);
+  color: var(--text);
+  border-left: 4px solid #f0ad4e;
+  padding-left: 12px;
+  border-radius: 6px;
+}
+
+.status-badge.degraded {
+  background-color: rgba(240, 173, 78, 0.16);
+  color: #9a6700;
+  border-left: none;
+}
+
+.unhealthy {
+  background-color: rgba(217, 83, 79, 0.12);
+  color: var(--text);
+  border-left: 4px solid #d9534f;
+  padding-left: 12px;
+  border-radius: 6px;
+}
+
+.status-badge.unhealthy {
+  background-color: rgba(217, 83, 79, 0.16);
+  color: #b71c1c;
+  border-left: none;
+}
+
+.warning {
+    color: #ff2600;
+    font-weight: bold;
+}
+
 @media (max-width: 600px) {
   .main-content {
     padding: 16px;
