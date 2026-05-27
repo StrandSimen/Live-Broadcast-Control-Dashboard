@@ -4,21 +4,33 @@ type StreamCardProps = {
   stream: StreamCardData;
 };
 
+const getStatus = (latency: number, packetLoss: number) => {
+    if (latency > 60 || packetLoss > 1) {
+        return "unhealthy";
+    }
+
+    if (latency > 40 || packetLoss > 0.6) {
+        return "degraded";
+    }
+
+    return "healthy";
+};
+
 export const StreamCard = ({ stream }: StreamCardProps) => {
-  const statusLabel = stream.status.charAt(0).toUpperCase() + stream.status.slice(1);
+  const statusLabel = getStatus(stream.latency, stream.packetLoss).charAt(0).toUpperCase() + getStatus(stream.latency, stream.packetLoss).slice(1);
 
   return (
-    <div className={`card ${stream.status}`}>
+    <div className={`card ${getStatus(stream.latency, stream.packetLoss)}`}>
       <h4>{stream.name}</h4>
       <p
-        className={`status-badge ${stream.status}`}
+        className={`status-badge ${getStatus(stream.latency, stream.packetLoss)}`}
         aria-label={`Stream status: ${statusLabel}`}
       >
         {statusLabel}
       </p>
       <p>Bitrate: {stream.bitrate} Mbps</p>
       <p>Latency: {stream.latency} ms</p>
-      {stream.latency > 50 && (
+      {stream.latency > 60 && (
         <p className="warning">⚠ High latency detected</p>
       )}
       <p>Packet Loss: {stream.packetLoss} %</p>
