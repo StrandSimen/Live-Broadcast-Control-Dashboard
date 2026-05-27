@@ -1,0 +1,12 @@
+
+.dashboard-container {
+        display: grid;
+        min-height: 100vh;
+        grid-template-columns: minmax(8rem,10rem) 1fr;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto 1fr auto;
+        grid-template-areas:
+          "header header"
+          "sidebar main-content"
+          "footer footer";
+}

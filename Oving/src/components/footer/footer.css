@@ -1,0 +1,10 @@
+.footer {
+    grid-area: footer;
+    box-sizing: border-box;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--footer);
+    color: var(--text);
+}

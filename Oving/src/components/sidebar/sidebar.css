@@ -1,0 +1,9 @@
+.sidebar {
+        height: 100%;
+        box-sizing: border-box;
+        width: 7em;
+        grid-area: sidebar;
+        padding: 20px;
+        background-color: var(--sidebar);
+        color: var(--text);
+}

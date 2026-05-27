@@ -1,11 +1,11 @@
-
+import { DashBoard } from './pages/dashboard/dashboard'
 import './App.css'
 
 function App() {
 
   return (
     <div className="App">
-      <h1>Oving 1</h1>
+      <DashBoard />
     </div>
   )
 }

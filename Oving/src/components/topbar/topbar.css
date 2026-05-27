@@ -1,0 +1,10 @@
+.topbar {
+        box-sizing: border-box;
+        height: 5em;
+        grid-area: header;
+        padding: 20px;
+        background-color: var(--header);
+        color: var(--text);
+        display: flex;
+        justify-content: space-between;
+}
