@@ -75,6 +75,14 @@
   border-left: none;
 }
 
+.offline {
+    background-color: rgba(158, 158, 158, 0.12);
+    color: var(--text);
+    border-left: 4px solid #9e9e9e;
+    padding-left: 12px;
+    border-radius: 6px;
+}
+
 .warning {
     color: #ff2600;
     font-weight: bold;

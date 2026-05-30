@@ -1,10 +1,16 @@
+import { useMemo, useState, useEffect } from 'react';
 import type { StreamCard as StreamCardData } from '../../type';
+import { useUptime } from '../hooks/uptimeContext';
 
 type StreamCardProps = {
   stream: StreamCardData;
 };
 
-const getStatus = (latency: number, packetLoss: number) => {
+const getStatus = (latency: number, packetLoss: number, bitrate: number) => {
+    if (bitrate === 0 && latency === 0 && packetLoss === 0) {
+        return "offline";
+    }
+
     if (latency > 60 || packetLoss > 1) {
         return "unhealthy";
     }
@@ -16,14 +22,44 @@ const getStatus = (latency: number, packetLoss: number) => {
     return "healthy";
 };
 
+const formatUptime = (totalSeconds: number): string => {
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+};
+
 export const StreamCard = ({ stream }: StreamCardProps) => {
-  const statusLabel = getStatus(stream.latency, stream.packetLoss).charAt(0).toUpperCase() + getStatus(stream.latency, stream.packetLoss).slice(1);
+  const contextElapsed = useUptime();
+  const status = getStatus(stream.latency, stream.packetLoss, stream.bitrate);
+  const isOffline = status === "offline";
+
+  const [onlineSince, setOnlineSince] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!isOffline && onlineSince === null) {
+      setOnlineSince(contextElapsed);
+    }
+
+    if (isOffline) {
+      setOnlineSince(null);
+    }}, [isOffline, contextElapsed, onlineSince]);
+
+  const uptime = useMemo(() => {
+    if (isOffline || onlineSince === null) {
+      return formatUptime(0);
+    }
+
+    return formatUptime(contextElapsed - onlineSince);
+  }, [isOffline, contextElapsed, onlineSince]);
+
+  const statusLabel = status.charAt(0).toUpperCase() + status.slice(1);
 
   return (
-    <div className={`card ${getStatus(stream.latency, stream.packetLoss)}`}>
+    <div className={`card ${status}`}>
       <h4>{stream.name}</h4>
       <p
-        className={`status-badge ${getStatus(stream.latency, stream.packetLoss)}`}
+        className={`status-badge ${status}`}
         aria-label={`Stream status: ${statusLabel}`}
       >
         {statusLabel}
@@ -37,7 +73,7 @@ export const StreamCard = ({ stream }: StreamCardProps) => {
       {stream.packetLoss > 1 && (
         <p className="warning">⚠ Packet loss is elevated</p>
       )}
-      <p>Uptime: {stream.uptime}</p>
+      <p>Uptime: {uptime}</p>
       <p>Region: {stream.region}</p>
     </div>
   );
