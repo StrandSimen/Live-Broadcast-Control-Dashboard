@@ -1,0 +1,23 @@
+.alarm-panel {
+    grid-area: alarm;
+    padding: 20px;
+    background-color: var(--sidebar);
+    color: var(--text);
+    border: 2px solid;
+}
+
+.alarm-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(200px, 1fr);
+    gap: 0.3rem;
+    margin-top: 1.3rem;
+}
+
+.alarm {
+    display: grid;
+    padding: 1em;
+    background-color: var(--card);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

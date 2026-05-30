@@ -8,3 +8,13 @@ export type StreamCard = {
     uptime?: number;
     region: string;
 }
+
+export type Alarm = {
+    id: string;
+    type: "latency" | "packetLoss" | "bitrate" | "disconnect";
+    severity: "warning" | "critical";
+    streamId: string;
+    streamName: string;
+    timestamp: number;
+    acknowledged: boolean;
+};
